@@ -1,0 +1,71 @@
+
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="container">
+				<h2>Click Trackers</h2>
+				<p>
+					A "Click Tracker" uses an <a href="https://en.wikipedia.org/wiki/Server-side_redirect" target="_blank">HTTP Redirect</a>
+					to track clicks on a link.
+				</p>
+			</div>
+		</div>
+
+		<div class="container">
+			<div>
+				<h3>How does it work?</h3>
+				<p>
+					When you click a link, you are making a request to a web server.  That server can track you!
+				</p>
+				<p>
+					There are 3 components to a Click Tracker:
+					<ol>
+						<li>A link that appears to link to a useful page, but actually links to the click tracker.</li>
+						<li>A web server that listens for requests for the click tracker and records
+							information about each request, which may include
+							the requester's email address, their IP address, the time of the request, which browser they use, etc.
+						</li>
+						<li>
+							A silent "redirect" to the page the user actually thought they were being linked to.
+						</li>
+					</ol>
+				</p>
+				<h3>Using a Click Tracker</h3>
+				<ul>
+					<li>
+						Request the click tracker manually by clicking a tracking link, like this one:
+						<?php
+						$path = rewriteURL(TRACK_CLICK) . '?tk=via_website&url=http://google.ca/';
+						echo('<a href="'. $path .'" title="Manually request click tracker">Google.ca</a>');
+						?>
+					</li>
+					<li>
+						Visit the Tracker's Database to view the tracking data collected so far:
+						<?php
+						$path = rewriteURL(HACKER_SITE);
+						echo('<a href="'. $path .'" title="Tracker\'s Database">Tracker\'s Database</a>');
+						?>
+					</li>
+				</ul>
+				<h3>Protecting your privacy from Click Trackers</h3>
+				<p>
+					Most browsers and email clients let you inspect a link before clicking on it:
+				</p>
+				<ul>
+					<li>
+						Hover over the link with your cursor to view the URL you are actually linking to.
+					</li>
+					<li>
+						Look for suspicious host names and tracking codes -- don't click if you see them
+					</li>
+					<li>
+						Visit the site without being tracked by copying the link location and editing out all the tracking codes.
+					</li>
+				</ul>
+				<h3>WARNING</h3>
+				<p>
+					Tracking clicks without permission is certainly of questionable ethics and may be against the law in some
+					jurisdictions.
+					<strong>The tools and code presented here are intended for educational purposes only!</strong>
+				</p>
+			</div>
+		</div>

@@ -1,0 +1,80 @@
+
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="container">
+				<h2>Web Beacon Trackers</h2>
+				<p>
+					A "Web Beacon" is a small, usually transparent 1x1 image - it can be used to silently track when an email is opened.
+				</p>
+			</div>
+		</div>
+
+		<div class="container">
+			<div>
+				<h3>How does it work?</h3>
+				<p>
+					Most email clients use HTML for message formatting.  HTML allows images to be embedded in the message.
+					When you open an HTML format email, your email client makes a request for the image.
+				</p>
+				<p>
+					There are thus 3 components to a Web Beacon tracker:
+					<ol>
+						<li>Send an HTML email with a specially coded img tag with the web beacon URL.</li>
+						<li>A web server that listens for requests for the web beacon image and records
+							information about each request, which may include
+							the requester's email address, their IP address, the time of the request, which email client they use, etc.
+						</li>
+						<li>
+							A database where information about each person to whom an email was sent is linked with the
+							tracking information obtained when their email client makes a request for the web beacon embedded within.
+						</li>
+					</ol>
+				</p>
+				<h3>Using a Web Beacon Tracker</h3>
+				<ul>
+					<li>
+						Send an email containing a Web Beacon tracker:
+						<?php
+						$path = rewriteURL(SEND_EMAIL);
+						echo('<a href="'. $path .'" title="Form to send email">Send Email with Tracking Beacon</a>');
+						?>
+					</li>
+					<li>
+						Request the Web Beacon tracker manually by visiting this URL:
+						<?php
+						$path = rewriteURL(TRACK_BEACON) . '?tk=via_website';
+						echo('<a href="'. $path .'" title="Manually request tracking beacon">'. $path .'</a>');
+						?>
+					</li>
+					<li>
+						Visit the Tracker's Database to view the tracking data collected so far:
+						<?php
+						$path = rewriteURL(HACKER_SITE);
+						echo('<a href="'. $path .'" title="Tracker\'s Database">Tracker\'s Database</a>');
+						?>
+					</li>
+				</ul>
+				<h3>Protecting your privacy from Web Beacons</h3>
+				<p>
+					Since web beacons work by tracking a request for a remote resource (e.g., a small image file)
+					you can completely defeat them... IF you can prevent your mail tool from requesting the beacon!!
+				</p>
+				<ul>
+					<li>
+						Some email clients provide a preference or setting to disable the automatic loading of remote content.
+						Here is what that looks like, for example, on Mac Mail:
+						<img src="/img/email_pref.png" alt="Load remote content in messages?" width="40%" height="40%">
+					</li>
+					<li>
+						This blocks remote content, like images and styling, allowing you an option to load them manually.
+						Of course, if you choose to load that content, the web beacon will also be loaded, and your information will be tracked.
+					</li>
+				</ul>
+				<h3>WARNING</h3>
+				<p>
+					Tracking email without permission is certainly of questionable ethics and may be against the law in some
+					jurisdictions.
+					<strong>The tools and code presented here are intended for educational purposes only!</strong>
+				</p>
+			</div>
+		</div>

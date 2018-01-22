@@ -1,0 +1,22 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    powderflask - design & programming
+
+    Thanks to:
+    Tony Gaitatzis - http://tonygaitatzis.tumblr.com/post/65647388814/big-data-email-open-tracking-in-php
+                   - http://tonygaitatzis.tumblr.com/post/62426747491/send-html-emails-using-php
+    php devtips - http://www.phpdevtips.com/2013/06/email-open-tracking-with-php-and-mysql/
+
+# THANKS
+
+    Capilano Univeristy for giving me the opportunity to explore, learn, and teach.
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Normalize.css, Modernizr, Bootstrap (gotta love it)
+    jQuery (of course)
+    github (with gratitude)

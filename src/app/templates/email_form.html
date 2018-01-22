@@ -1,0 +1,23 @@
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="panel panel-primary medium">
+                <div class="panel-title">
+                    Send an Email with a Tracking Web Beacon
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="<?php echo rewriteURL(SEND_EMAIL) ?>">
+                        <div class="form-group">
+                            <label>Send To:</label>
+                            <input name="recipient" class="form-control" placeholder="To:"></input>
+                        </div>
+                        <div class="form-group">
+                            <label>From:</label>
+                            <input name="sender" class="form-control" placeholder="From:"></input>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
