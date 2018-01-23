@@ -29,10 +29,10 @@ switch($_SERVER['REQUEST_METHOD']) {
             Msg::addMessage("Email was not sent.  An error occurred.");
         }
 
-        echo($email->message_html);
+        //        echo($email->message_html);
 
         // ... and, go back to the page the user was on.
-        //Redirect(rewriteURL(WEB_BEACON));
+        Redirect(rewriteURL(WEB_BEACON));
         break;
 }
 ?>
