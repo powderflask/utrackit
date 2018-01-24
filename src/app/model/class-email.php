@@ -52,7 +52,7 @@ class Email {
     }
 
     public function add_tracking_link() {
-        $path = rewriteURL(TRACK_CLICK) . '?tk='.$this->tracking_key.'&url='.urlencode(siteURL());
+        $path = CLICK_TRACKING_URL . '?tk='.$this->tracking_key.'&url='.urlencode(siteURL());
         $link = "
             <p>
                 <a href='". $path ."' title='Click Tracker'>This link tracks when and where you clicked it!</a>

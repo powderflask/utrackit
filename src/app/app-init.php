@@ -49,6 +49,7 @@
 
     // URL's and Anchors required for tracking and viewing tracked data
     define('TRACKING_URL', rel2abs( TRACK_BEACON, siteURL() ) );
+    define('CLICK_TRACKING_URL', rel2abs( TRACK_CLICK, siteURL() ) );
     define('HACKERS_URL', rel2abs( HACKER_SITE, siteURL() ) );
     define('HACKERS_ANCHOR', "<a href='".HACKERS_URL."' title='Tracking data'>".HACKERS_URL."</a>");
 
