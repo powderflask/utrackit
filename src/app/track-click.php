@@ -14,7 +14,7 @@
 require_once 'model/util.php';
 require_once 'model/class-trackedrequest.php';
 
-$url = isset($_GET['url']) ? $_GET['url'] : siteURL();
+$url = isset($_GET['url']) ? urldecode($_GET['url']) : siteURL();
 
 // Track the current request...
 $request_info = TrackedRequest::trackRequest('click', $url);
