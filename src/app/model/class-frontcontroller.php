@@ -1,6 +1,6 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
+ * UTrackIt - tracking technologies tutorial
  * -------------------------------------------
  *
  *   The purpose of this code is to demonstrate common email tracking technologies work.

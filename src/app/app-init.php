@@ -1,14 +1,14 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
- * -------------------------------------------
+ * UTrackIt - tracking technologies tutorial
+ * -----------------------------------------
  *
  *   The purpose of this code is to demonstrate common email tracking technologies work.
  *
  *   This code should NOT, under any circumstance, be used on a real website.
  *
  *
- *   This app uses a very simple "Front Controller" pattern to route requests.
+ *   Configuration settings, request routing, and basic app initialization
  *
  * Version: 0.1
  * Author: Driftwood Cove Designs

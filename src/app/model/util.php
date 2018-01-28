@@ -1,6 +1,6 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
+ * UTrackIt - tracking technologies tutorial
  * -------------------------------------------
  * 
  * Utilities

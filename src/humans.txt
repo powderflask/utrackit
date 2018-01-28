@@ -4,6 +4,7 @@
 # TEAM
 
     powderflask - design & programming
+    lasquetimermaid - research & programming
 
     Thanks to:
     Tony Gaitatzis - http://tonygaitatzis.tumblr.com/post/65647388814/big-data-email-open-tracking-in-php

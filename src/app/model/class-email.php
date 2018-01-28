@@ -1,7 +1,7 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
- * -------------------------------------------
+ * UTrackIt - tracking technologies tutorial
+ * -----------------------------------------
  * 
  * Basic email class
  *   - configure and send HTML formatted messages.

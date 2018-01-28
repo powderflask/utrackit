@@ -25,7 +25,7 @@
         </style>
      </head>
     <body>
-        <h1>Welcome to Hacker Cracker Email Tracker</h1>
+        <h1>Welcome to Hacker Cracker Web Tracker</h1>
         <table>
           <tbody>
             <tr><th>Date</th><th>Tracking Key</th><th>IP Addr</th><th>User Agent</th><th>Tracking Type</th><th>Request URL</th></tr>

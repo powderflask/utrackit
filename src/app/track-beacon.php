@@ -1,9 +1,9 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
+ * UTrackIt - tracking technologies tutorial
  * -------------------------------------------
  * 
- * Script to track a requet for a web beacon.
+ * Script to track a request for a web beacon.
  *  
  * Version: 0.1
  * Author: Driftwood Cove Designs

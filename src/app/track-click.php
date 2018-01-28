@@ -1,7 +1,7 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
- * -------------------------------------------
+ * UTrackIt - tracking technologies tutorial
+ * -----------------------------------------
  * 
  * Script to track a request for a web page.
  *  

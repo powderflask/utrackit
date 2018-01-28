@@ -1,6 +1,6 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
+ * UTrackIt - tracking technologies tutorial
  * -------------------------------------------
  * 
  * Script to send an email containing a web beacon tracked by the track-beacon script

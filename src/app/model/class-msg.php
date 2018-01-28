@@ -1,7 +1,7 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
- * -------------------------------------------
+ * UTrackIt - tracking technologies tutorial
+ * -----------------------------------------
  * 
  * Simple messaging class
  *   - stores serialized messages directly in session cookie.

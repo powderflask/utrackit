@@ -1,14 +1,9 @@
 <?php
 /**
- * Email Tracker - tracking technologies tutorial
- * -------------------------------------------
+ * UTrackIt - tracking technologies tutorial
+ * -----------------------------------------
  *
- *   The purpose of this code is to demonstrate common email tracking technologies work.
- *
- *   This code should NOT, under any circumstance, be used on a real website.
- *
- *
- *   This app uses a very simple "Front Controller" pattern to route requests.
+ *   A wrapper for an Sqlite DB, using a PDO connection.
  *
  * Version: 0.1
  * Author: Driftwood Cove Designs
@@ -20,6 +15,13 @@ class DB {
     var $host= 'localhost';
     var $dbname= 'sqlite.db';
     var $pdo = null;
+
+    /**
+     * Constructor - singleton pattern
+     *   Use DB::getConnection() to get singleton DB object
+     */
+    protected function __construct() {
+    }
 
     /**
      * Main access point for clients:  DB::getConnection()
@@ -98,11 +100,5 @@ class DB {
         }
     }
 
-    /**
-     * Constructor - singleton pattern
-     */
-    protected function __construct() {
-    }
-    
 }  // end DB class
 ?>
