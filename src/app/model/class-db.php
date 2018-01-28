@@ -18,15 +18,13 @@
 
 class DB {
     var $host= 'localhost';
-    var $dbname= 'emailtracker';
-    var $dbuser= 'emailtracker';
-    var $dbpw= 'thisisnotsecure';
-    var $connection = null;
+    var $dbname= 'sqlite.db';
+    var $pdo = null;
 
     /**
      * Main access point for clients:  DB::getConnection()
      * Singleton pattern.
-     * returns a mysqli DB connection object, or Null.
+     * returns a DB object with an open PDO connection , or Null.
      */
     static function getConnection() {
         // The DB object (singleton)
@@ -35,15 +33,13 @@ class DB {
             $db = new DB();
 
             // Create connection
-            $db->connection = new mysqli($db->host, $db->dbuser, $db->dbpw, $db->dbname);
-            
-            // Check connection
-            if ($db->connection->connect_error) {
-              Msg::addMessage("Failed to connect to MySQL: " . $db->connection->connect_error, Message::MSG_ERROR);
-              $db->connection = null;
+            try {
+                $db->pdo = new \PDO("sqlite:" . $db->dbname);
+                // DB connection will close automatically when $db->pdo object is destoyed (i.e., when the script is done).
+            } catch (\PDOException $e) {
+                Msg::addMessage("Failed to connect to the SQLite database! ".$e, Message::MSG_ERROR);
+                $db->pdo = null;
             }
-            // close the DB connection when the script is done.
-            register_shutdown_function(array($db, 'shutdown'));   
         }
         return $db;
     }
@@ -52,43 +48,55 @@ class DB {
      * Is this DB object connected?
      */
     function isConnected() {
-        return $this->connection != null;    
+        return $this->pdo != null;
     }
     
     /**
-     * Make the given query using a prepared statement and put log any error messages.
+     * Make the given query and put log any error messages.
      * Returns the query result or null
+     * TODO: perform basic data cleaning on parameters and prepare query.
      */
      function query($query, $parameter=null, $logErrors=TRUE) {
          $result = null;
          if ($this->isConnected()) {
-             $result = $this->connection->query($query);
-             if (!$result) {
-                 Msg::addMessage("DB Query failed: " . $query, $this->connection->error, Message::MSG_ERROR);
+             try {
+                 $result = $this->pdo->query($query);
+             } catch (\PDOException $e) {
+                 Msg::addMessage("DB Query failed: " . $query, $e, Message::MSG_ERROR);
              }
-             return $result;
          }
-             // TODO: upgrade to used properly escapted paraemters in prepared statements.
-//             $stmt = $this->connection->prepare($query);
-//             if (! $stmt) {
-//                 Msg::addMessage("DB Query failed: " . $query, $this->connection->error, MSG_ERROR);
-//                 return null;
-//             }
-//             if ($parameter) {
-//                 // SANITIZE the parameter to prevent most injection attacks!!
-//                 $param = $this->connection->real_escape_string ( $parameter );
-//                 $stmt->bind_param("s", $param);
-//             }
-//             $stmt->execute();
-//             $result = $stmt->get_result();
-//             $stmt->close();
-//             if ($this->connection->errno && $logErrors) {
-//                 Msg::addMessage("DB Query failed: " . $this->connection->error, MSG_ERROR);
-//                 $result = null;
-//             }
-//         }
-//         return $result;
+         return $result;
      }
+
+    /**
+     * Return an array of rows from the given query result.
+     * result is an array of rows (of PDO type specified) returned from query
+     */
+    static function fetch_rows($result, $pdo_type=\PDO::FETCH_OBJ) {  // $pdo_type=\PDO::FETCH_ASSOC for assoc. array
+        $rows = [];
+        if ($result) {
+            while ($row = $result->fetch($pdo_type)) {
+                $rows[] = $row;
+            }
+        }
+        // print_r($rows);
+        return $rows;
+    }
+
+    /**
+     * Make the given query and put log any error messages.
+     * No results returned (e.g., Create or Delete)
+     */
+    function exec($query, $parameter=null, $logErrors=TRUE) {
+        $result = null;
+        if ($this->isConnected()) {
+            try {
+                $this->pdo->exec($query);
+            } catch (\PDOException $e) {
+                Msg::addMessage("DB Query failed: " . $query, $e, Message::MSG_ERROR);
+            }
+        }
+    }
 
     /**
      * Constructor - singleton pattern
@@ -96,12 +104,5 @@ class DB {
     protected function __construct() {
     }
     
-    /**
-     * Disconnect - this function is called automatically when script ends.
-     */
-    function shutdown() {
-        if ($this->isConnected())
-            $this->connection->close();
-    }    
 }  // end DB class
 ?>

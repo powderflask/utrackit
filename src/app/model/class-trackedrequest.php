@@ -30,21 +30,17 @@ class TrackedRequest {
 
     /**
      * Add a request to the DB -- GACK! raw data stored in DB -- pathetic!
+     * TODO: pass parameters separate and use prepared statement
      */
     static function add($trackingkey, $user_agent, $ip_addr, $track_type, $url) {
         $db = DB::getConnection();
         if ($db->isConnected()) {
             // Rely on MySQL to auto_increment id and use current_timestamp for datetime
             $query="INSERT INTO trackedrequests (trackingkey, user_agent, ip_addr, track_type, url)
-                    VALUES ('$trackingkey', '$user_agent', '$ip_addr', '$track_type', '$url');";
+                    VALUES ('$trackingkey', '$user_agent', '$ip_addr', '$track_type', '$url')";
 
-            $result = $db->query($query);
-            $result = !$result ? "DB Error adding new request tracking record." : TRUE;
+            $db->exec($query);
         }
-        else {
-           $result = "Unable to connect to DB - try later.";
-        }
-        return $result;
     }
 
     /**
@@ -74,11 +70,7 @@ class TrackedRequest {
                              ORDER BY trackingkey ASC, timestamp DESC;";
             // Run query
             $result = $db->query($query);
-            if ($result && $result->num_rows > 0) {
-                while ($record = $result->fetch_object('TrackedRequest')) {
-                    $tracked[] = $record;
-                }
-            }
+            $tracked = DB::fetch_rows($result);
         }
         return $tracked;
     }
@@ -132,24 +124,21 @@ class TrackedRequest {
         $db = DB::getConnection();
         if ($db->isConnected()) {
             if ($deleteFirst) {
-                $db->query("DROP TABLE IF EXISTS trackedrequests");
+                $db->exec("DROP TABLE IF EXISTS trackedrequests");
             }
             // Only do the create if the table does not yet exist.
-            $table_exists = $db->query("DESCRIBE `trackedrequests`;", FALSE);
-            if (! $table_exists) {
-                $query = "CREATE TABLE `trackedrequests` (
-                                  `id` int(10) unsigned NOT NULL auto_increment,
-                                  `trackingkey` text character set utf8 NOT NULL,
-                                  `timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP,
-                                  `user_agent` text character set utf8,
-                                  `ip_addr` text character set utf8,
-                                  `track_type` text character set utf8,
-                                  `url` text character set utf8,
-                                  PRIMARY KEY  (`id`)
-                                ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-                         ";
-                $db->query($query);
-            }
+            $query = "CREATE TABLE IF NOT EXISTS trackedrequests (
+                              id INTEGER PRIMARY KEY NOT NULL,
+                              trackingkey text NOT NULL,
+                              timestamp timestamp default CURRENT_TIMESTAMP NOT NULL,
+                              user_agent text,
+                              ip_addr text,
+                              track_type text,
+                              url text
+                            )
+                     ";
+
+            $db->exec($query);
          }
     }
         
