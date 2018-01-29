@@ -38,9 +38,9 @@ class DB {
 
             // Create connection
             try {
-                $db->pdo = new \PDO("sqlite:" . $db->dbname);
-                // DB connection will close automatically when $db->pdo object is destoyed (i.e., when the script is done).
-            } catch (\PDOException $e) {
+                $db->pdo = new PDO("sqlite:" . $db->dbname);
+                // DB connection will close automatically when $db->pdo object is destroyed (i.e., when the script is done).
+            } catch (PDOException $e) {
                 Msg::addMessage("Failed to connect to the SQLite database! ".$e, Message::MSG_ERROR);
                 $db->pdo = null;
             }
@@ -65,7 +65,7 @@ class DB {
          if ($this->isConnected()) {
              try {
                  $result = $this->pdo->query($query);
-             } catch (\PDOException $e) {
+             } catch (PDOException $e) {
                  Msg::addMessage("DB Query failed: " . $query, $e, Message::MSG_ERROR);
              }
          }
@@ -76,7 +76,7 @@ class DB {
      * Return an array of rows from the given query result.
      * result is an array of rows (of PDO type specified) returned from query
      */
-    static function fetch_rows($result, $pdo_type=\PDO::FETCH_OBJ) {  // $pdo_type=\PDO::FETCH_ASSOC for assoc. array
+    static function fetch_rows($result, $pdo_type=PDO::FETCH_OBJ) {  // $pdo_type=PDO::FETCH_ASSOC for assoc. array
         $rows = [];
         if ($result) {
             while ($row = $result->fetch($pdo_type)) {
@@ -96,7 +96,7 @@ class DB {
         if ($this->isConnected()) {
             try {
                 $this->pdo->exec($query);
-            } catch (\PDOException $e) {
+            } catch (PDOException $e) {
                 Msg::addMessage("DB Query failed: " . $query, $e, Message::MSG_ERROR);
             }
         }
