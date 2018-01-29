@@ -88,8 +88,9 @@ class TrackedRequest {
      */
     public static function trackRequest($trackingtype='?', $url=null) {
         // Collect data about the request
+
         $session_id = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : null;
-        $trackingkey = isset($_GET['tk']) ? $_GET['tk'] : $session_id;  // TODO: GET param keys define as const
+        $trackingkey = isset($_GET['tk']) ? urldecode($_GET['tk']) : $session_id;  // TODO: GET param keys define as const
         if ($url == null) {
             $url = isset($_SERVER['REQUEST_URI']) ? rel2abs(RequestURI()) : '';
         }

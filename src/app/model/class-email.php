@@ -52,8 +52,8 @@ class Email {
             <p>This tracking software is for educational purposes only, and none of
                your personal data has been compromised by this email tracker.</p>
         ";
-        $this->add_tracking_link();
         $this->add_tracking_code();
+        $this->add_tracking_link();
         $this->wrap_html();
     }
 
@@ -68,7 +68,7 @@ class Email {
     }
 
     private function add_tracking_link() {
-        $path = CLICK_TRACKING_URL . '?tk='.$this->tracking_key.'&url='.urlencode(siteURL());
+        $path = CLICK_TRACKING_URL . '?tk='.urlencode($this->tracking_key).'&url='.urlencode(siteURL());
         $link = "
             <p>
                 <a href='". $path ."' title='Click Tracker'>This link tracks when and where you clicked it!</a>
@@ -78,7 +78,7 @@ class Email {
     }
 
     private function add_tracking_code() {
-        $this->message_html = $this->message_html."<img src='".TRACKING_URL."?tk=".$this->tracking_key."'>";
+        $this->message_html = $this->message_html."<img src='".TRACKING_URL."?tk=".urlencode($this->tracking_key)."'>";
     }
 
     /**
