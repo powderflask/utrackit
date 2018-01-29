@@ -16,14 +16,17 @@ This code should NOT, under any circumstance, be used on a real website for any 
 
 INSTALLATION:
 -------------
- System Requirements:  PHP 5+ with Sqlite3 PDO driver.
+ System Requirements:  PHP 5+ with Sqlite3;  mod_rewrite optional - see (2)
 
  1) Install the app in htdocs, and point your browser at index.php
     An squlite DB will be created in the src folder
 
- 2) If you are using .htaccess mod_rewrite, you can (optionally) use clean URL's setting in app-init.php
+ 2) If you are using .htaccess mod_rewrite, you can (by default) use clean URL
     Otherwise, if your server does not do re-writes, ensure CLEAN_URLS is FALSE in app-init.php.
 
+TO DO:
+------
+ - add "3rd party cookie" tracker
 
 DEVELOPMENT:
 ------------

@@ -1,5 +1,6 @@
 <?php
    require_once 'model/class-trackedrequest.php';
+   $track_type = isset($_GET['track_type']) ? $_GET['track_type'] : null;
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,11 +26,11 @@
         </style>
      </head>
     <body>
-        <h1>Welcome to Hacker Cracker Web Tracker</h1>
+        <h1>Welcome to Hacker Cracker <?php echo $track_type?ucwords($track_type):"Web" ?> Tracker</h1>
         <table>
           <tbody>
             <tr><th>Date</th><th>Tracking Key</th><th>IP Addr</th><th>User Agent</th><th>Tracking Type</th><th>Request URL</th></tr>
-            <?php TrackedRequest::listAll($_GET['track_type']) ?>
+            <?php TrackedRequest::listAll($track_type) ?>
           </tbody>            
         </table>
 

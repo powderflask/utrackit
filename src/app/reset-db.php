@@ -18,8 +18,12 @@ $all = TRUE;
 
 if ($all) {
     require_once 'model/class-trackedrequest.php';
-    TrackedRequest::createTable(TRUE);
-    Msg::addMessage("ALL DB tables were cleared and reset to intial defaults.");
+    if (TrackedRequest::createTable(TRUE)) {
+        Msg::addMessage("ALL DB tables were cleared and reset to intial defaults.");
+    }
+    else {
+        Msg::addMessage("Unable to complete DB reset / create operation.", Message::MSG_ERROR);
+    }
 }
 
 // ... and, go back to the page the user was on.

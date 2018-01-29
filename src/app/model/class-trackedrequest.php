@@ -119,7 +119,8 @@ class TrackedRequest {
      * If $deleteFirst is TRUE, then any existing trackedrequests table will be deleted first.
      * Otherwise, table is created only if it does not already exist.
      */
-    public static function createTable($deleteFirst = FALSE) {
+    public static function createTable($deleteFirst = FALSE)
+    {
         $db = DB::getConnection();
         if ($db->isConnected()) {
             if ($deleteFirst) {
@@ -138,8 +139,10 @@ class TrackedRequest {
                      ";
 
             $db->exec($query);
-         }
+            return true;
+        } else {
+            return false;
+        }
     }
-        
 }
 ?>
