@@ -111,8 +111,6 @@ class Email {
 
         $message = "";
 
-        $mime_boundary = "<<<[".md5(time())."]";
-
         // if the email is HTML, then let's tell the MTA about the mime-type and all that
         // see https://www.qcode.co.uk/post/70  for RFC 5332 standard
         if ($this->message_html) {
@@ -120,7 +118,8 @@ class Email {
             $headers[] = "Content-Transfer-Encoding: quoted-printable";
             $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
-/*** Giving up on multi-part messages.  Ugh.  Try: https://github.com/PHPMailer/PHPMailer
+/*** Giving up on multi-part messages.  Ugh.  Maybe try: https://github.com/PHPMailer/PHPMailer
+            $mime_boundary = "<<<[".md5(time())."]";
             // set up a mime boundary so that we can encode
             // the email inside it, hiding it from clients
             // that can only read plain text emails

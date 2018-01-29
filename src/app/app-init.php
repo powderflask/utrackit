@@ -45,9 +45,9 @@
     //  1) add an entry to this array (tracker url matches tracker html template name!)
     //  2) add .html page to tracker templates folder to demonstrate the tracker
     $TRACKERS = array (
-        CLICK_TRACKER  => array('path' => CLICK_TRACKER,  'name' => 'Click Tracker'),
-        WEB_BEACON  => array('path' => WEB_BEACON,  'name' => 'Web Beacon'),
-        COOKIE_TRACKER  => array('path' => COOKIE_TRACKER,  'name' => 'Cookie Tracker'),
+        CLICK_TRACKER  => array('path' => CLICK_TRACKER,  'name' => 'Click Tracker', 'track_type' => 'click'),
+        WEB_BEACON  => array('path' => WEB_BEACON,  'name' => 'Web Beacon', 'track_type' => 'beacon'),
+        COOKIE_TRACKER  => array('path' => COOKIE_TRACKER,  'name' => 'Cookie Tracker', 'track_type' => 'cookie'),
     );
 
     // URL's and Anchors required for tracking and viewing tracked data

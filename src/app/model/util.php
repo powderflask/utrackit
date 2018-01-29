@@ -58,6 +58,23 @@ function trackerMenu($page='') {
 }
 
 /**
+ * Return a formatted HTML string with the trackers DB submenu as a series of <li> elements
+ * If $page is set, that link will be given an 'active' class.
+ */
+function trackerDBMenu() {
+    global $TRACKERS;
+
+    $output = '';
+    foreach ($TRACKERS as $tracker => $anchor) {
+        $path = HACKERS_URL."?track_type=".$anchor['track_type'];
+        $output .= '<li>' . PHP_EOL;
+        $output .= '   <a href="'. $path .'" title="Tracker: '. $anchor['name'] .'">' . $anchor['name'] . ' DB</a>' . PHP_EOL;
+        $output .= '</li>' . PHP_EOL;
+    }
+    return $output;
+}
+
+/**
  * Redirect to given url.
  */ 
 function Redirect($url = '/', $permanent = FALSE)
