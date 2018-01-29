@@ -9,11 +9,12 @@
                     <form method="post" action="<?php echo rewriteURL(SEND_EMAIL) ?>">
                         <div class="form-group">
                             <label>Send To:</label>
-                            <input name="recipient" class="form-control" placeholder="To:"></input>
+                            <input name="recipient" class="form-control" placeholder="To:""></input>
                         </div>
                         <div class="form-group">
                             <label>From:</label>
-                            <input name="sender" class="form-control" placeholder="From:"></input>
+                            <input name="sender" class="form-control" placeholder="From:" value="<?php echo Email::DEFAULT_SENDER ?>"></input>
+                            <span class="help-block">Leave the default sender to reduce Spam score on sent email.</span>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

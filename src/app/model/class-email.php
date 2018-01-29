@@ -23,7 +23,7 @@ class Email {
     const SEND_OK = TRUE;
     const SEND_FAIL = FALSE;
     const DEFAULT_RECIP = 'Johnny Appleseed <johnnny@example.com>';
-    const DEFAULT_SENDER = 'Example Company <no-reply@example.com>';
+    const DEFAULT_SENDER = 'notifier@driftwoodcove.ca';
 
     public function __construct($recipient=self::DEFAULT_RECIP, $sender=self::DEFAULT_SENDER) {
         $this->sender = $sender;
