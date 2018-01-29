@@ -116,9 +116,6 @@ class Email {
 
         $mime_boundary = "<<<[".md5(time())."]";
 
-        // DEBUG
-        $this->message_html = false;
-
         // if the email is HTML, then let's tell the MTA about the mime-type and all that
         // see https://www.qcode.co.uk/post/70  for RFC 5332 standard
         if ($this->message_html) {
@@ -129,28 +126,28 @@ class Email {
             $headers[] = "Content-Type: multipart/alternative; ";
             $headers[] = "  boundary=\"".$mime_boundary."\"";
 
-            $message .= Email::LINE_BREAK.Email::LINE_BREAK;
+            $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: base64".Email::LINE_BREAK;
+            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
-            $message .= chunk_split(base64_encode($this->message_text));
+            $message .= $this->message_text;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-Type: text/html; charset=\"utf-8\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: base64".Email::LINE_BREAK;
+            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
-            $message .= chunk_split(base64_encode($this->message_html));
+            $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
         } else {
-            $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: base64".Email::LINE_BREAK;
+            $headers[] .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
+            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
-            $message .= chunk_split(base64_encode($this->message_text));
+            $message .= $this->message_text;
         }
 
 
