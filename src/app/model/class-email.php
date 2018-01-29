@@ -123,10 +123,10 @@ class Email {
             // the email inside it, hiding it from clients
             // that can only read plain text emails
             $headers[] = "MIME-Version: 1.0";
-            $headers[] = "Content-Type: multipart/alternative; ".Email::LINE_BREAK;
-            $headers[] = "  boundary=\"".$mime_boundary."\"".Email::LINE_BREAK;
+            $headers[] = "Content-Type: multipart/alternative; ";
+            $headers[] = "  boundary=\"".$mime_boundary."\"";
 
-            $message .= Email::LINE_BREAK;
+            $message .= Email::LINE_BREAK.Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
