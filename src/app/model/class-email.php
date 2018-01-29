@@ -114,40 +114,40 @@ class Email {
         // if the email is HTML, then let's tell the MTA about the mime-type and all that
         // see https://www.qcode.co.uk/post/70  for RFC 5332 standard
         if ($this->message_html) {
-            $headers[] = "Content-Type: text/html; charset=\"iso-8859-1\"";
-            $headers[] = "Content-Transfer-Encoding: quoted-printable";
+            /*  Single part html - simple
+            $headers[] = "Content-Type: TEXT/HTML; charset=utf-8";
+            $headers[] = "Content-Transfer-Encoding: 8bit";   // ENCODING MATTERS!! for URL query strings
             $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
-/*** Giving up on multi-part messages.  Ugh.  Maybe try: https://github.com/PHPMailer/PHPMailer
-            $mime_boundary = "<<<[".md5(time())."]";
+            */
+            // multi-part messages are a pain!  Ugh.  Maybe try: https://github.com/PHPMailer/PHPMailer
+            $mime_boundary = "X3ctmeXmJ4ww=_?:";
             // set up a mime boundary so that we can encode
             // the email inside it, hiding it from clients
             // that can only read plain text emails
             $headers[] = "MIME-Version: 1.0";
-            $headers[] = "Content-Type: multipart/alternative; ";
-            $headers[] = "  boundary=\"".$mime_boundary."\"";
+            $headers[] = "Content-Type: multipart/alternative; boundary=\"".$mime_boundary."\" ";
 
-            $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
-            $message .= "Content-type: text/plain; charset=\"iso-8859-1\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: 8BIT".Email::LINE_BREAK;
+            $message .= "Content-Type: TEXT/PLAIN;\n   charset=utf-8".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
-            $message .= "Content-Type: text/html; charset=\"iso-8859-1\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: 8BIT".Email::LINE_BREAK;
+            $message .= "Content-Type: TEXT/HTML;\n   charset=utf-8".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
 
-            $message .= "--".$mime_boundary.Email::LINE_BREAK;
-*/
+            $message .= "--".$mime_boundary;
         } else {
-            $headers[] = "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
+            /* Single part plain text - simple */
+            $headers[] = "Content-type: TEXT/PLAIN; charset=utf-8".Email::LINE_BREAK;
             // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
