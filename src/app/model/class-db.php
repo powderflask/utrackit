@@ -10,6 +10,8 @@
  * Author URI: http://driftwoodcove.ca
  * License: GPL3 see license.txt
  */
+ 
+require_once "class-msg.php";
 
 class DB {
     var $host= 'localhost';
