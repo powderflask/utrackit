@@ -44,12 +44,11 @@ class Email {
         $this->message_html = "
             <h1>Hello!</h1>
             <p>This email contains a hidden tracking code.
-               If your email client loaded the remote web beacon
-               in this email, you've been tracked!</p>"."
+               If your email client loaded the remote web beacon in this email, you've been tracked!</p>
             <p>To see the tracking information collected about you, see :
-            ".HACKERS_ANCHOR. "</p>"."
+            ".HACKERS_ANCHOR."</p>
             <p>Your email address is associated with tracking code:
-            ".$this->tracking_key."</p>"."
+            ".$this->tracking_key."</p>
             <p>This tracking software is for educational purposes only, and none of
                your personal data has been compromised by this email tracker.</p>
         ";
@@ -125,7 +124,7 @@ class Email {
             // that can only read plain text emails
             $headers[] = "MIME-Version: 1.0";
             $headers[] = "Content-Type: multipart/alternative; ".Email::LINE_BREAK;
-            $headers[] = "  boundary=\"".$mime_boundary."\"".Email::LINE_BREAK.Email::LINE_BREAK;
+            $headers[] = "  boundary=\"".$mime_boundary."\"".Email::LINE_BREAK;
 
             $message .= Email::LINE_BREAK;
 
