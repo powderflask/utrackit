@@ -12,6 +12,7 @@
  */
  
 require_once "class-msg.php";
+require_once "util.php";
 
 class DB {
     var $host= 'localhost';
@@ -23,6 +24,7 @@ class DB {
      *   Use DB::getConnection() to get singleton DB object
      */
     protected function __construct() {
+        $this->pdo = null;
     }
 
     /**
@@ -33,15 +35,15 @@ class DB {
     static function getConnection() {
         // The DB object (singleton)
         static $db = null;
-        if ($db === null) {
+        if ($db === null || $db->pdo === null) {
             $db = new DB();
-
             // Create connection
             try {
                 $db->pdo = new PDO("sqlite:" . $db->dbname);
                 // DB connection will close automatically when $db->pdo object is destroyed (i.e., when the script is done).
             } catch (PDOException $e) {
-                Msg::addMessage("Failed to connect to the SQLite database! ".$e, Message::MSG_ERROR);
+                Msg::addMessage("Failed to connect to the SQLite database: ".$db->dbname, Message::MSG_WARN);
+                Msg::addMessage("Exception: ".$e, Message::MSG_ERROR);
                 $db->pdo = null;
             }
         }
