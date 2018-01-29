@@ -130,16 +130,16 @@ class Email {
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
-            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: base64".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
-            $message .= $this->message_text;
+            $message .= chunk_split(base64_encode($this->message_text));
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-Type: text/html; charset=\"utf-8\"".Email::LINE_BREAK;
-            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: base64".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
-            $message .= $this->message_html;
+            $message .= chunk_split(base64_encode($this->message_html));
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
