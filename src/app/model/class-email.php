@@ -101,34 +101,37 @@ class Email {
         $mime_boundary = '<<<--==+X['.md5(time()).']';
 
         // if the email is HTML, then let's tell the MTA about the mime-type and all that
+        // see https://www.qcode.co.uk/post/70  for RFC 5332 standard
         if ($this->message_html) {
             // set up a mime boundary so that we can encode
             // the email inside it, hiding it from clients
             // that can only read plain text emails
             $headers[] = 'MIME-Version: 1.0';
-            $headers[] = 'Content-Type: multipart/mixed;';
+            $headers[] = 'Content-Type: multipart/alternative;';
             $headers[] = ' boundary="'.$mime_boundary.'"';
-            $message = $this->message_html;
-
+//            $message = $this->message_html;
             $message .= "\r\n";
             $message .= "--".$mime_boundary."\r\n";
-        }
 
-        // since this is a mime/multipart message, we need to re-iterate
-        // the message contents in order for mime-aware clients to read it
-        if ($this->message_html) {
-            $message .= "Content-Type: text/html; charset=\"iso-8859-1\"\r\n";
-            $message .= "Content-Transfer-Encoding: 7bit\r\n";
+            $message .= 'Content-Type: text/html; charset=\"utf-8\"\r\n';
+            $message .= "Content-Transfer-Encoding: quoted-printable\r\n";
             $message .= "\r\n";
             $message .= $this->message_html;
+            $message .= "\r\n";
+            $message .= "--".$mime_boundary."\r\n";
+
+            $message .= 'Content-type: text/plain; charset=\"utf-8\"\r\n';
+            $message .= "Content-Transfer-Encoding:  quoted-printable\r\n";
+            $message .= "\r\n";
+            $message .= $this->message_text;
+            $message .= "\r\n";
+            $message .= "--".$mime_boundary."\r\n";
         } else {
-            $message .= 'Content-type: text/plain; charset=iso-8859-1';
-            $message .= "Content-Transfer-Encoding:  7bit\r\n";
+            $message .= 'Content-type: text/plain; charset=\"utf-8\"\r\n';
+            $message .= "Content-Transfer-Encoding:  quoted-printable\r\n";
             $message .= "\r\n";
             $message .= $this->message_text;
         }
-        $message .= "\r\n";
-        $message .= "--".$mime_boundary."\r\n";
         $message .= $this->message_text;
 
 
