@@ -119,20 +119,20 @@ class Email {
             // the email inside it, hiding it from clients
             // that can only read plain text emails
             $headers[] = 'MIME-Version: 1.0';
-            $headers[] = 'Content-Type: multipart/alternative;  boundary="'.$mime_boundary.'"';
+            $headers[] = 'Content-Type: multipart/alternative;  boundary='.$mime_boundary.Email::LINE_BREAK;
 //            $message = $this->message_html;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
-            $message .= "Content-Type: text/html; charset=utf-8".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            $message .= "Content-Type: text/html; charset=charset=ISO-8859-1".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: 7bit".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary."\r\n";
-            $message .= "Content-type: text/plain; charset=utf-8".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            $message .= "Content-type: text/plain; charset=charset=ISO-8859-1".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: 7bit".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
             $message .= Email::LINE_BREAK;
