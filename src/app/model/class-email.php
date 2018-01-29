@@ -49,9 +49,20 @@ class Email {
         ";
         $this->add_tracking_link();
         $this->add_tracking_code();
+        $this->wrap_html();
     }
 
-    public function add_tracking_link() {
+    private function wrap_html() {
+        $this->message_html = "
+            <html>
+             <body>
+          " . $this->messsage ."
+             </body>
+            </html>
+          ";
+    }
+
+    private function add_tracking_link() {
         $path = CLICK_TRACKING_URL . '?tk='.$this->tracking_key.'&url='.urlencode(siteURL());
         $link = "
             <p>
@@ -61,16 +72,16 @@ class Email {
         $this->message_html = $this->message_html.$link;
     }
 
-    public function add_tracking_code() {
+    private function add_tracking_code() {
         $this->message_html = $this->message_html."<img src='".TRACKING_URL."?tk=".$this->tracking_key."'>";
     }
 
-        /**
+    /**
      * Make text rfj2047 compliant
      * Convert HTML character entities into ISO-8859-1,
      * then to Base64 for rfc2047 email subject compatibility.
      */
-    public static function rfc2047_sanitize($text) {
+    private static function rfc2047_sanitize($text) {
         $output = mb_encode_mimeheader(
             html_entity_decode(
                 $text,
@@ -113,21 +124,21 @@ class Email {
             $message .= "\r\n";
             $message .= "--".$mime_boundary."\r\n";
 
-            $message .= 'Content-Type: text/html; charset=\"utf-8\"\r\n';
+            $message .= "Content-Type: text/html; charset=\"utf-8\"\r\n";
             $message .= "Content-Transfer-Encoding: quoted-printable\r\n";
             $message .= "\r\n";
             $message .= $this->message_html;
             $message .= "\r\n";
             $message .= "--".$mime_boundary."\r\n";
 
-            $message .= 'Content-type: text/plain; charset=\"utf-8\"\r\n';
+            $message .= "Content-type: text/plain; charset=\"utf-8\"\r\n";
             $message .= "Content-Transfer-Encoding:  quoted-printable\r\n";
             $message .= "\r\n";
             $message .= $this->message_text;
             $message .= "\r\n";
             $message .= "--".$mime_boundary."\r\n";
         } else {
-            $message .= 'Content-type: text/plain; charset=\"utf-8\"\r\n';
+            $message .= "Content-type: text/plain; charset=\"utf-8\"\r\n";
             $message .= "Content-Transfer-Encoding:  quoted-printable\r\n";
             $message .= "\r\n";
             $message .= $this->message_text;
