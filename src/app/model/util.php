@@ -71,6 +71,18 @@ function Redirect($url = '/', $permanent = FALSE)
 }
 
 /**
+ * The Request URI without any query parameters
+ */
+function RequestURI($with_query=false)
+{
+    $uri = $_SERVER["REQUEST_URI"];
+    if (! $with_query) {
+        $uri = strtok($uri,'?');
+    }
+    return $uri;
+}
+
+/**
  * Redirect back to referer - usually after processing a form.
  */ 
 function RedirectBack($default_url = '/')
@@ -80,8 +92,7 @@ function RedirectBack($default_url = '/')
     $server  = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
     // Only go back if that doesn't cause recursion and "back" is still on this site.
     if ( $referer &&
-         basename($referer) == basename($current) &&
-         parse_url( $referer, PHP_URL_HOST ) == $server )
+         basename($referer) == basename($current) ) //&& parse_url( $referer, PHP_URL_HOST ) == $server )
         $url = $referer;
     else
         $url = $default_url;

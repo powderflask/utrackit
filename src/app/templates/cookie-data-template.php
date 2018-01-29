@@ -17,7 +17,7 @@
             <td># pages visited on site</td><td><?php echo $_COOKIE['site_tracker'] ?></td>
         </tr>
         <tr>
-            <td># times current page visited</td><td><?php echo $_COOKIE[$_SERVER['REQUEST_URI']] ?></td>
+            <td># times current page visited</td><td><?php echo $_COOKIE[RequestURI()] ?></td>
         </tr>
     </table>
     <h4>Browser / Location data</h4>

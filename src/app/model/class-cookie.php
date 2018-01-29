@@ -23,7 +23,7 @@ define ('TRACK_DURATION', 60*60*24*90);  // track for 3 months
 class Cookie {
 
     function __construct($name, $page_specific=false, $is_date=false, $reset=false) {
-        $path = $page_specific ? $_SERVER['REQUEST_URI'] : null;
+        $path = $page_specific ? RequestURI() : null;
         $expiry = time()+TRACK_DURATION;
         $value = null;
         if(isset($_COOKIE[$name]) and !$reset) { // we have a cookie, use its value.
@@ -40,7 +40,7 @@ class Cookie {
 
     static function track() {
         // Don't track visits to the "hackers DB"
-        if (strpos($_SERVER['REQUEST_URI'], HACKER_SITE))
+        if (strpos(RequestURI(), HACKER_SITE))
             return;
 
         // Track:
@@ -50,7 +50,7 @@ class Cookie {
         new Cookie('last_visit', false, true, true);
 
         // Page visits
-        new Cookie($_SERVER['REQUEST_URI'], true);
+        new Cookie(RequestURI(), true);
 
         TrackedRequest::trackRequest("cookie");
     }

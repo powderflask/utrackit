@@ -11,6 +11,7 @@
  * License: GPL3 see license.txt
  */
 require_once 'class-db.php';
+require_once 'util.php';
 
 // Ensure the TrackedRequest DB table is setup (this is really inefficient - should be relegated to install script)
 TrackedRequest::createTable();
@@ -90,7 +91,7 @@ class TrackedRequest {
         $session_id = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : null;
         $trackingkey = isset($_GET['tk']) ? $_GET['tk'] : $session_id;  // TODO: GET param keys define as const
         if ($url == null) {
-            $url = isset($_SERVER['REQUEST_URI']) ? rel2abs($_SERVER['REQUEST_URI']) : '';
+            $url = isset($_SERVER['REQUEST_URI']) ? rel2abs(RequestURI()) : '';
         }
         $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         $ip_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
