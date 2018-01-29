@@ -20,7 +20,7 @@ class Email {
         $message_html,
         $tracking_key;
 
-    const LINE_BREAK ="\n";
+    const LINE_BREAK ="\r\n";
     const SEND_OK = TRUE;
     const SEND_FAIL = FALSE;
     const DEFAULT_RECIP = 'Johnny Appleseed <johnnny@example.com>';
@@ -119,21 +119,20 @@ class Email {
             // the email inside it, hiding it from clients
             // that can only read plain text emails
             $headers[] = "MIME-Version: 1.0";
-            $headers[] = "Content-Type: multipart/alternative;";
-            $headers[] = "    boundary=\"".$mime_boundary."\"".Email::LINE_BREAK;
+            $headers[] = "Content-Type: multipart/alternative; boundary=\"".$mime_boundary."\"".Email::LINE_BREAK.Email::LINE_BREAK;
 
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-Type: text/html; charset=\"utf-8\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
@@ -141,7 +140,7 @@ class Email {
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
         } else {
             $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
+            // $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
         }
