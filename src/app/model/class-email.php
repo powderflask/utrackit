@@ -105,11 +105,8 @@ class Email {
         $headers[] = "From: ".$this->sender;
         $headers[] = "Reply-To: ".$this->sender;
 
-
-
-        // Subjects are tricky.  Even some
-        // sophisticated email clients don't
-        // understand unicode subject lines.
+        // Subjects are tricky.
+        // Even some sophisticated email clients don't understand unicode subject lines.
         $subject = self::rfc2047_sanitize($this->subject);
 
         $message = "";
@@ -126,19 +123,20 @@ class Email {
             $headers[] = "Content-Type: multipart/alternative; ";
             $headers[] = "  boundary=\"".$mime_boundary."\"";
 
-            //$message .= Email::LINE_BREAK;
+            $message .= $this->message_html;
+            $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
-            $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
+            $message .= "Content-type: text/plain; charset=\"iso-8859-1\"".Email::LINE_BREAK;
             $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
-            //$message .= Email::LINE_BREAK;
+            $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
-            $message .= "Content-Type: text/html; charset=\"utf-8\"".Email::LINE_BREAK;
+            $message .= "Content-Type: text/html; charset=\"iso-8859-1\"".Email::LINE_BREAK;
             $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
-            //$message .= Email::LINE_BREAK;
+            $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
 
