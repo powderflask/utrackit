@@ -110,7 +110,7 @@ class Email {
 
         $message = "";
 
-        $mime_boundary = "<<<--==+X[".md5(time())."]";
+        $mime_boundary = "<<<[".md5(time())."]";
 
         // if the email is HTML, then let's tell the MTA about the mime-type and all that
         // see https://www.qcode.co.uk/post/70  for RFC 5332 standard
@@ -125,22 +125,22 @@ class Email {
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
-            $message .= "Content-type: text/plain; charset=charset=ISO-8859-1".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: 7bit".Email::LINE_BREAK;
+            $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
-            $message .= "Content-Type: text/html; charset=charset=ISO-8859-1".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: 7bit".Email::LINE_BREAK;
+            $message .= "Content-Type: text/html; charset=\"utf-8\"".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
         } else {
-            $message .= "Content-type: text/plain; charset=utf-8".Email::LINE_BREAK;
+            $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
             $message .= "Content-Transfer-Encoding: quoted-printable".Email::LINE_BREAK;
             $message .= Email::LINE_BREAK;
             $message .= $this->message_text;
