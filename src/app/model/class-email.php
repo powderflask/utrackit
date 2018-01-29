@@ -98,8 +98,8 @@ class Email {
     public function send( ) {
         // let's create the headers to show where the email
         // originated from.
-        $headers[] = 'From: '.$this->sender;
-        $headers[] = 'Reply-To: '.$this->sender;
+        $headers[] = "From: ".$this->sender;
+        $headers[] = "Reply-To: ".$this->sender;
 
 
 
@@ -110,7 +110,7 @@ class Email {
 
         $message = "";
 
-        $mime_boundary = '<<<--==+X['.md5(time()).']';
+        $mime_boundary = "<<<--==+X[".md5(time())."]";
 
         // if the email is HTML, then let's tell the MTA about the mime-type and all that
         // see https://www.qcode.co.uk/post/70  for RFC 5332 standard
@@ -118,9 +118,17 @@ class Email {
             // set up a mime boundary so that we can encode
             // the email inside it, hiding it from clients
             // that can only read plain text emails
-            $headers[] = 'MIME-Version: 1.0';
-            $headers[] = 'Content-Type: multipart/alternative;  boundary='.$mime_boundary.Email::LINE_BREAK;
-//            $message = $this->message_html;
+            $headers[] = "MIME-Version: 1.0";
+            $headers[] = "Content-Type: multipart/alternative;";
+            $headers[] = "    boundary=\"".$mime_boundary."\"".Email::LINE_BREAK;
+
+            $message .= Email::LINE_BREAK;
+
+            $message .= "--".$mime_boundary.Email::LINE_BREAK;
+            $message .= "Content-type: text/plain; charset=charset=ISO-8859-1".Email::LINE_BREAK;
+            $message .= "Content-Transfer-Encoding: 7bit".Email::LINE_BREAK;
+            $message .= Email::LINE_BREAK;
+            $message .= $this->message_text;
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
@@ -130,12 +138,6 @@ class Email {
             $message .= $this->message_html;
             $message .= Email::LINE_BREAK;
 
-            $message .= "--".$mime_boundary."\r\n";
-            $message .= "Content-type: text/plain; charset=charset=ISO-8859-1".Email::LINE_BREAK;
-            $message .= "Content-Transfer-Encoding: 7bit".Email::LINE_BREAK;
-            $message .= Email::LINE_BREAK;
-            $message .= $this->message_text;
-            $message .= Email::LINE_BREAK;
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
         } else {
             $message .= "Content-type: text/plain; charset=utf-8".Email::LINE_BREAK;
