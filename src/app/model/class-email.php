@@ -20,7 +20,7 @@ class Email {
         $message_html,
         $tracking_key;
 
-    const LINE_BREAK ="\r\n";
+    const LINE_BREAK ="\n";
     const SEND_OK = TRUE;
     const SEND_FAIL = FALSE;
     const DEFAULT_RECIP = 'Johnny Appleseed <johnnny@example.com>';
@@ -126,7 +126,7 @@ class Email {
             $headers[] = "Content-Type: multipart/alternative; ";
             $headers[] = "  boundary=\"".$mime_boundary."\"";
 
-            $message .= Email::LINE_BREAK;
+            //$message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary.Email::LINE_BREAK;
             $message .= "Content-type: text/plain; charset=\"utf-8\"".Email::LINE_BREAK;
