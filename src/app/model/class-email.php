@@ -56,7 +56,7 @@ class Email {
         $this->message_html = "
             <html>
              <body>
-          " . $this->messsage ."
+          " . $this->message_html ."
              </body>
             </html>
           ";
@@ -122,17 +122,17 @@ class Email {
             $headers[] = ' boundary="'.$mime_boundary.'"';
 //            $message = $this->message_html;
             $message .= "\r\n";
-            $message .= "--".$mime_boundary."\r\n";
 
+            $message .= "--".$mime_boundary."\r\n";
             $message .= "Content-Type: text/html; charset=\"utf-8\"\r\n";
             $message .= "Content-Transfer-Encoding: quoted-printable\r\n";
             $message .= "\r\n";
             $message .= $this->message_html;
             $message .= "\r\n";
-            $message .= "--".$mime_boundary."\r\n";
 
+            $message .= "--".$mime_boundary."\r\n";
             $message .= "Content-type: text/plain; charset=\"utf-8\"\r\n";
-            $message .= "Content-Transfer-Encoding:  quoted-printable\r\n";
+            $message .= "Content-Transfer-Encoding: quoted-printable\r\n";
             $message .= "\r\n";
             $message .= $this->message_text;
             $message .= "\r\n";
@@ -143,8 +143,6 @@ class Email {
             $message .= "\r\n";
             $message .= $this->message_text;
         }
-        $message .= $this->message_text;
-
 
 
         // try to send the email.
