@@ -29,14 +29,14 @@
         <table>
           <tbody>
             <tr><th>Date</th><th>Tracking Key</th><th>IP Addr</th><th>User Agent</th><th>Tracking Type</th><th>Request URL</th></tr>
-            <?php TrackedRequest::listAll() ?>
+            <?php TrackedRequest::listAll($_GET['track_type']) ?>
           </tbody>            
         </table>
 
         <h3>
             <?php
-            $path = rewriteURL(WEB_BEACON);
-            echo('<a href="'. $path .'" title="Web Beacon">Back to Web Beacon Tracker page</a>');
+            $path = rewriteURL(HOME);
+            echo('<a href="'. $path .'" title="UTrackIt">Back to UTrackIt!</a>');
             ?>
         </h3>
         <h2>Of course....</h2>

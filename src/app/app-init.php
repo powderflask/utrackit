@@ -15,6 +15,7 @@
  * Author URI: http://driftwoodcove.ca
  * License: GPL3 see license.txt
  */
+    require_once 'model/class-cookie.php';
     require_once 'model/class-msg.php';
     require_once 'model/util.php';
 
@@ -37,6 +38,7 @@
     // Tracker page base names used for special processing done for specific trackers
     define ('CLICK_TRACKER', 'app/click-tracker');
     define ('WEB_BEACON', 'app/web-beacon');
+    define ('COOKIE_TRACKER', 'app/cookie-tracker');
 
     // Crude routing for the Tracker pages:
     // To add a new Tracker:
@@ -45,6 +47,7 @@
     $TRACKERS = array (
         CLICK_TRACKER  => array('path' => CLICK_TRACKER,  'name' => 'Click Tracker'),
         WEB_BEACON  => array('path' => WEB_BEACON,  'name' => 'Web Beacon'),
+        COOKIE_TRACKER  => array('path' => COOKIE_TRACKER,  'name' => 'Cookie Tracker'),
     );
 
     // URL's and Anchors required for tracking and viewing tracked data
@@ -55,4 +58,6 @@
 
     // Start the session  (something sensible :-P )
     session_start();
-    
+
+    // Manage tracking Cookies
+    Cookie::track();

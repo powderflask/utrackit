@@ -1,0 +1,145 @@
+
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="container">
+				<h2>Cookie Trackers</h2>
+				<p>
+					A "Cookie Tracker" stores a small file, called a <a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank">Cookie</a>,
+					on your computer.  The cookie stores information about your activities on a website.
+				</p>
+			</div>
+		</div>
+
+		<div class="container">
+			<div>
+				<h3>How does it work?</h3>
+				<p>
+					Virtually every website on the Web uses Cookies - they are essential to modern web applications.<br/>
+					When you visit a website, your browser allows it to store a cookie on your computer.
+					That cookie allows the website to "remember" you - but it can also be used to track you!
+				</p>
+				<p>
+					There are 3 components to a Cookie Tracker:
+				</p>
+				<ol>
+					<li>One or more small files containing information about you, stored on your computer.</li>
+					<li>A web server that listens for requests that include the cookie and records
+						information about each request, which may include
+						the "refering" web page URL, your IP address, the time of the request, which browser you use, etc.
+					</li>
+					<li>
+						The HTTP protocol (the rules that govern communication on the Web), which dictates that cookies
+						stored on your computer should be silently sent back to the website that issued them,
+						every time you make a new request to that website.
+					</li>
+				</ol>
+				<h3>Using a Cookie Tracker</h3>
+				<ul>
+					<li>
+						No action required -- just by visiting this page (or virtually any page on the web!)
+						you are being tracked with cookies.<br>
+						<ul class="nav nav-pills">
+							<li role="presentation">
+								<a data-toggle="modal" data-target="#cookieDataModal">
+									View data tracked about you on UTrackIt
+								</a>
+							</li>
+							<li role="presentation">
+								<a data-toggle="modal" data-target="#cookieRawModal">
+									View the raw Cookies stored by UTrackIt
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						Visit the Tracker's Database to view the cookie tracking data collected so far:
+						<?php
+						$path = rewriteURL(HACKER_SITE)."?track_type=cookie";
+						echo('<a href="'. $path .'" title="Tracker\'s Database">Tracker\'s Database</a>');
+						?>
+					</li>
+
+					<li>
+						To view the cookies stored on your computer by this website:
+						<ol>
+							<li>Open your browser Preferences or Settings</li>
+							<li>Look for Privacy options</li>
+							<li>Look for "Show Cookies" or similar</li>
+							<li>Search for the site's domain name</li>
+						</ol>
+						There are good Cookie Manager plugins available for most browsers - these provide tools to
+						allow you inspect your cookies more thoroughly, and provide fine-grain control for managing your cookies.
+					</li>
+				</ul>
+				<h3>Protecting your privacy from Cookie Trackers</h3>
+				<p>
+					Most browsers will allow you to disable cookies.  Try it - you will find that this breaks most
+					websites, and certainly means that web applications (logins, shopping carts, etc.) will not work.
+				</p>
+				<p>
+					Disabling "3rd party cookies" is often a good idea, with very few negative reprecussions,
+					and can substantially reduce the amount of cookie tracking.
+				</p>
+				<p>
+					Aside from that, here are a few steps you can take to improve your browsing privacy:
+				</p>
+				<ul>
+					<li>
+						Use "incognito" or "private" browsing when practical -- cookies from these sessions are not stored.
+					</li>
+					<li>
+						Log out from websites after you are done -- staying logged in to a web site vastly increase the
+						type and amount of data about you that can be tracked while you are browsing on other sites.
+					</li>
+					<li>
+						Clear house -- delete all your cookies once in a while.  The only impact this has is that websites
+						will "forget" you -- you will be logged out from any sites you were logged in to.
+					</li>
+				</ul>
+				<h3>WARNING</h3>
+				<p>
+					Use of tracking cookies without permission is certainly of questionable ethics and may be
+					<a href="https://www.cookielaw.org/the-cookie-law/" target="_blank">against the law in some jurisdictions</a>.
+					<strong>The tools and code presented here are intended for educational purposes only!</strong>
+				</p>
+			</div>
+		</div>
+
+		<!-- Cookie Data Modal -->
+		<div class="modal fade" id="cookieDataModal" tabindex="-1" role="dialog" aria-labelledby="cookieDataModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="cookieDataModalLabel">Cookie Tracking Data</h4>
+					</div>
+					<div class="modal-body">
+						<?php include "templates/cookie-data-template.php"; ?>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Cookie RAW Modal -->
+		<div class="modal fade" id="cookieRawModal" tabindex="-1" role="dialog" aria-labelledby="cookieRawModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="cookieRawModalLabel">UTrackIt Cookies stored on Your Computer</h4>
+					</div>
+					<div class="modal-body">
+<pre>
+<?php print_r($_COOKIE); ?>
+</pre>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>

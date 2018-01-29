@@ -18,18 +18,18 @@
 				</p>
 				<p>
 					There are thus 3 components to a Web Beacon tracker:
-					<ol>
-						<li>Send an HTML email with a specially coded img tag with the web beacon URL.</li>
-						<li>A web server that listens for requests for the web beacon image and records
-							information about each request, which may include
-							the requester's email address, their IP address, the time of the request, which email client they use, etc.
-						</li>
-						<li>
-							A database where information about each person to whom an email was sent is linked with the
-							tracking information obtained when their email client makes a request for the web beacon embedded within.
-						</li>
-					</ol>
 				</p>
+				<ol>
+					<li>Send an HTML email with a specially coded img tag with the web beacon URL.</li>
+					<li>A web server that listens for requests for the web beacon image and records
+						information about each request, which may include
+						the requester's email address, their IP address, the time of the request, which email client they use, etc.
+					</li>
+					<li>
+						A database where information about each person to whom an email was sent is linked with the
+						tracking information obtained when their email client makes a request for the web beacon embedded within.
+					</li>
+				</ol>
 				<h3>Using a Web Beacon Tracker</h3>
 				<ul>
 					<li>
@@ -47,9 +47,9 @@
 						?>
 					</li>
 					<li>
-						Visit the Tracker's Database to view the tracking data collected so far:
+						Visit the Tracker's Database to view the web beacon tracking data collected so far:
 						<?php
-						$path = rewriteURL(HACKER_SITE);
+						$path = rewriteURL(HACKER_SITE)."?track_type=beacon";
 						echo('<a href="'. $path .'" title="Tracker\'s Database">Tracker\'s Database</a>');
 						?>
 					</li>

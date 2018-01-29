@@ -18,17 +18,17 @@
 				</p>
 				<p>
 					There are 3 components to a Click Tracker:
-					<ol>
-						<li>A link that appears to link to a useful page, but actually links to the click tracker.</li>
-						<li>A web server that listens for requests for the click tracker and records
-							information about each request, which may include
-							the requester's email address, their IP address, the time of the request, which browser they use, etc.
-						</li>
-						<li>
-							A silent "redirect" to the page the user actually thought they were being linked to.
-						</li>
-					</ol>
 				</p>
+				<ol>
+					<li>A link that appears to link to a useful page, but actually links to the click tracker.</li>
+					<li>A web server that listens for requests for the click tracker and records
+						information about each request, which may include
+						the requester's email address, their IP address, the time of the request, which browser they use, etc.
+					</li>
+					<li>
+						A silent "redirect" to the page the user actually thought they were being linked to.
+					</li>
+				</ol>
 				<h3>Using a Click Tracker</h3>
 				<ul>
 					<li>
@@ -39,9 +39,9 @@
 						?>
 					</li>
 					<li>
-						Visit the Tracker's Database to view the tracking data collected so far:
+						Visit the Tracker's Database to view the link click tracking data collected so far:
 						<?php
-						$path = rewriteURL(HACKER_SITE);
+						$path = rewriteURL(HACKER_SITE)."?track_type=click";
 						echo('<a href="'. $path .'" title="Tracker\'s Database">Tracker\'s Database</a>');
 						?>
 					</li>

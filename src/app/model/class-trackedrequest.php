@@ -57,12 +57,14 @@ class TrackedRequest {
     /**
      * Load all tracked requests from the DB - return empty array if none exist
      */
-    public static function fetchAll() {
+    public static function fetchAll($track_type=null) {
         $tracked = array();
         $db = DB::getConnection();
+        $where = $track_type ? "WHERE track_type='$track_type'" : "";
+
         if ($db->isConnected()) {
-            $query="SELECT * FROM trackedrequests
-                             ORDER BY trackingkey ASC, timestamp DESC;";
+            $query="SELECT * FROM trackedrequests " . $where .
+                           " ORDER BY trackingkey ASC, timestamp DESC";
             // Run query
             $result = $db->query($query);
             $tracked = DB::fetch_rows($result);
@@ -73,8 +75,8 @@ class TrackedRequest {
     /**
      * Echo all tracked requests to the response stream
      */
-    public static function listAll() {
-        $tracked = self::fetchAll();
+    public static function listAll($track_type=null) {
+        $tracked = self::fetchAll($track_type);
         foreach ($tracked as $record) {
             include 'app/templates/tracked_record-template.php';
         }
@@ -85,7 +87,8 @@ class TrackedRequest {
      */
     public static function trackRequest($trackingtype='?', $url=null) {
         // Collect data about the request
-        $trackingkey = isset($_GET['tk']) ? $_GET['tk'] : null;  // TODO: GET param keys define as const
+        $session_id = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : null;
+        $trackingkey = isset($_GET['tk']) ? $_GET['tk'] : $session_id;  // TODO: GET param keys define as const
         if ($url == null) {
             $url = isset($_SERVER['REQUEST_URI']) ? rel2abs($_SERVER['REQUEST_URI']) : '';
         }
