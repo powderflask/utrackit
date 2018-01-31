@@ -114,13 +114,15 @@ class Email {
         // if the email is HTML, then let's tell the MTA about the mime-type and all that
         // see https://www.qcode.co.uk/post/70  for RFC 5332 standard
         if ($this->message_html) {
-            /*  Single part html - simple
-            $headers[] = "Content-Type: TEXT/HTML; charset=utf-8";
+            // Single part html - simple
+            $headers[] = "Content-Type: text/html; charset=utf-8";
             $headers[] = "Content-Transfer-Encoding: 8bit";   // ENCODING MATTERS!! for URL query strings
             $message .= Email::LINE_BREAK;
             $message .= $this->message_html;
-            */
+
             // multi-part messages are a pain!  Ugh.  Maybe try: https://github.com/PHPMailer/PHPMailer
+            // this works on some mail clients, but doesn't seem universal.  No idea why.
+            /*
             $mime_boundary = "X3ctmeXmJ4ww=_?:";
             // set up a mime boundary so that we can encode
             // the email inside it, hiding it from clients
@@ -145,6 +147,7 @@ class Email {
             $message .= Email::LINE_BREAK;
 
             $message .= "--".$mime_boundary;
+            */
         } else {
             /* Single part plain text - simple */
             $headers[] = "Content-type: TEXT/PLAIN; charset=utf-8".Email::LINE_BREAK;
