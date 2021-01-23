@@ -18,8 +18,8 @@ INSTALLATION:
 -------------
  System Requirements:  PHP 5+ with Sqlite3;  mod_rewrite optional - see (2)
 
- 1) Install the app in htdocs, and point your browser at index.php
-    An squlite DB will be created in the src folder
+ 1) Install the src in htdocs, and point your browser at index.php
+    An sqlite DB will be created in the src folder
 
  2) If you are using .htaccess mod_rewrite, you can (by default) use clean URL
     Otherwise, if your server does not do re-writes, ensure CLEAN_URLS is FALSE in app-init.php.
