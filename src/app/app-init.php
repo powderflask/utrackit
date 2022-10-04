@@ -15,9 +15,9 @@
  * Author URI: http://driftwoodcove.ca
  * License: GPL3 see license.txt
  */
-    require_once 'model/class-cookie.php';
-    require_once 'model/class-msg.php';
-    require_once 'model/util.php';
+
+    // Start the session  (something sensible :-P )
+    session_start();
 
     // If you use a server with no URL rewrite capabilities (e.g., IIS) - this flag causes URL paths to be sent as a ?q= paramter
     define ('CLEAN_URLS', TRUE);
@@ -56,8 +56,9 @@
     define('HACKERS_URL', rel2abs( HACKER_SITE, siteURL() ) );
     define('HACKERS_ANCHOR', "<a href='".HACKERS_URL."' title='Tracking data'>".HACKERS_URL."</a>");
 
-    // Start the session  (something sensible :-P )
-    session_start();
+    require_once 'model/class-cookie.php';
+    require_once 'model/class-msg.php';
+    require_once 'model/util.php';
 
     // Manage tracking Cookies
     Cookie::track();

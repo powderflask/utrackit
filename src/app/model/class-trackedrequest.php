@@ -65,7 +65,7 @@ class TrackedRequest {
 
         if ($db->isConnected()) {
             $query="SELECT * FROM trackedrequests " . $where .
-                           " ORDER BY trackingkey ASC, timestamp DESC";
+                           " ORDER BY timestamp DESC";
             // Run query
             $result = $db->query($query);
             $tracked = DB::fetch_rows($result);
